@@ -19,7 +19,7 @@ ScriptName = "Resub script"
 Website = "https://www.twitch.tv/kronett"
 Description = "Custom message when resub"
 Creator = "pedrocortes05"
-Version = "1.0.0"
+Version = "1.0"
 
 #---------------------------
 #   Define Global Variables
@@ -71,7 +71,7 @@ def Tick():
 #---------------------------
 def Parse(parseString, months=1):
     if "$emote" in parseString:
-        return parseString.replace("$emote", f"{ScriptSettings.Emote} " * months)
+        return parseString.replace("$emote", (ScriptSettings.Emote + " ") * months)
     
     return parseString
 
