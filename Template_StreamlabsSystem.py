@@ -33,31 +33,22 @@ ScriptSettings = MySettings()
 #   [Required] Initialize Data (Only called on load)
 #---------------------------
 def Init():
-
     #   Create Settings Directory
     directory = os.path.join(os.path.dirname(__file__), "Settings")
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     #   Load settings
+    global ScriptSettings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = MySettings(SettingsFile)
+    Log("init xd")
     return
 
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    Log(data.RawData)
-
-    if not data.IsChatMessage():
-        return
-
-    months = 2
-
-    if ScriptSettings.Command.lower() in data.Message.lower():
-        SendMessage(Parse(ScriptSettings.Resub, months=months))
-
     return
 
 #---------------------------
@@ -69,10 +60,15 @@ def Tick():
 #---------------------------
 #   [Optional] Parse method (Allows you to create your own custom $parameters) 
 #---------------------------
-def Parse(parseString, months=1):
-    if "$emote" in parseString:
-        return parseString.replace("$emote", (ScriptSettings.Emote + " ") * months)
-    
+def Parse(parseString, userid, username, targetid, targetname, message):
+    if "$moremotes" in parseString:
+        start = '$moremotes('
+        end = ')'
+        months = (parseString.split(start))[1].split(end)[0]
+        emote = ScriptSettings.Emote + " "
+        emotes = emote * int(months)
+        return parseString.replace(start + months + end, emotes)
+
     return parseString
 
 #---------------------------
