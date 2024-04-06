@@ -1,12 +1,5 @@
 {
   "output_file": "Settings/settings.json",
-  "Resub": {
-    "type": "textbox",
-    "value": "<3 kronet1Pray $username, ¡Qué grande! $emote",
-    "label": "Message",
-    "tooltip": "The message that will be sent to chat when resub.",
-    "group": "Core"
-  },
   "Emote": {
     "type": "textbox",
     "value": "kronet1Wow",
